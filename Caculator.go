@@ -53,11 +53,11 @@ func main() {
 
 	parts := strings.Fields(input)
 	if len(parts) > 3 {
-		fmt.Println("Выдача паники, так как формат математической операции не удовлетворяет заданию — два операнда и один оператор (+, -, /, *).")
+		panic("Выдача паники, так как формат математической операции не удовлетворяет заданию — два операнда и один оператор (+, -, /, *).")
 		return
 	}
 	if len(parts) != 3 {
-		fmt.Println("Выдача паники, так как строка не является математической операцией.")
+		panic("Выдача паники, так как строка не является математической операцией.")
 		return
 	}
 
@@ -66,7 +66,7 @@ func main() {
 	isRomanInput := isRoman(aStr) && isRoman(bStr)
 
 	if (!isRoman(aStr) && isRoman(bStr)) || (isRoman(aStr) && !isRoman(bStr)) {
-		fmt.Println("Выдача паники, так как используются одновременно разные системы счисления.")
+		panic("Выдача паники, так как используются одновременно разные системы счисления.")
 		return
 	}
 
@@ -79,30 +79,30 @@ func main() {
 	} else {
 		a, err = strconv.Atoi(aStr)
 		if err != nil {
-			fmt.Println("Ошибка: неверный формат числа.")
+			panic("Ошибка: неверный формат числа.")
 			return
 		}
 		b, err = strconv.Atoi(bStr)
 		if err != nil {
-			fmt.Println("Ошибка: неверный формат числа.")
+			panic("Ошибка: неверный формат числа.")
 			return
 		}
 	}
 
 	if a < 1 || a > 10 || b < 1 || b > 10 {
-		fmt.Println("Ошибка: числа должны быть в диапазоне от 1 до 10.")
+		panic("Ошибка: числа должны быть в диапазоне от 1 до 10.")
 		return
 	}
 
 	result, err := calculate(a, b, op)
 	if err != nil {
-		fmt.Println("Ошибка:", err)
+		panic(err)
 		return
 	}
 
 	if isRomanInput {
 		if result < 1 {
-			fmt.Println("Выдача паники, так как в римской системе нет отрицательных чисел.")
+			panic("Выдача паники, так как в римской системе нет отрицательных чисел.")
 			return
 		}
 		fmt.Println("Результат:", intToRoman[result])
